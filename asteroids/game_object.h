@@ -4,7 +4,9 @@
 #include "Game.h"
 #include "types.h"
 #include <iostream>
+#include <vector>
 #include <boost\geometry\strategies\transform\matrix_transformers.hpp>
+#include <boost\geometry\algorithms\centroid.hpp> 
 #include <boost\geometry\algorithms\transform.hpp> 
 
 
@@ -13,7 +15,7 @@ protected:
 	fshape shp;
 	fpoint pos;
 
-	constant_move* mov;
+	constant_move *mov;
 
 	float rot_angle;
 	float rot_shift;
@@ -25,6 +27,6 @@ public:
 	virtual bool if_dead() override { return dead; }
 	
 	game_object(fshape, fpoint, constant_move*, float, float);
-	~game_object();
+	virtual ~game_object();
 };
 

@@ -3,6 +3,7 @@
 #include <list>
 #include <vector>
 #include <iostream>
+#include <memory>
 #include "game_obj_interface.h"
 
 
@@ -16,7 +17,7 @@ public:
 
 	SDL_Window* GetWindow() const;
 	SDL_Renderer* GetRenderer() const;
-	std::list<game_object_interface*> &get_objects_list() const {return objects; }
+	std::list<std::unique_ptr<game_object_interface>> &get_objects_list() const { return objects; }
 
 private:
 	//methods
@@ -25,6 +26,6 @@ private:
 	//properties
 	SDL_Window * win;
 	SDL_Renderer * render;
-	std::list<game_object_interface*> &objects;
+	mutable std::list<std::unique_ptr<game_object_interface>> objects;
 };
 

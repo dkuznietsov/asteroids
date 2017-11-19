@@ -39,18 +39,16 @@ public:
 		g::transform(shp, temp, mov);
 		shp = temp;
 	}
-	void add(float velocity, float angle){
-		vel += velocity;
-		this->angle += angle;
-	}
 
-	float get_angle() {
-		return angle;
+	float get_angle() { return angle; }
+	float get_velocity() { return vel; }
+	virtual ~constant_move() {
 	}
 
 };
 
 class accelerated_move : public constant_move {
+protected:
 	float acc;
 public:
 	accelerated_move(float velocity, float max_speed, float acceleration, float angle)
@@ -59,4 +57,16 @@ public:
 		vel += acc;
 		constant_move::move(pt, shp);
 	}
+	virtual ~accelerated_move() {}
 };
+
+class spaceship_move : public accelerated_move {
+public:
+	using accelerated_move::accelerated_move;
+	void add(float velocity, float angle) {
+		this->angle += angle;
+		this->vel += velocity;
+	}
+	~spaceship_move() {}
+};
+

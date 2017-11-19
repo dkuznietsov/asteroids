@@ -3,8 +3,7 @@
 #include <stdexcept>
 
 
-Game::Game():
-	objects{ *new std::list<game_object_interface*>()} {
+Game::Game(){
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		throw std::runtime_error(SDL_GetError());
 	}
@@ -21,7 +20,8 @@ Game::Game():
 	}
 	this->render = renderer;
 
-
+	std::list<std::unique_ptr<game_object_interface>>{};
+	//objects = std::list<game_object_interface*>{};
 }
 
 Game const & Game::Instance()
@@ -54,6 +54,5 @@ Game::~Game()
 	if(this->win != NULL){
 		SDL_DestroyWindow(this->win);
 	}
-	delete &objects;
 	
 }
